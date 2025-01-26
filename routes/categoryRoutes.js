@@ -4,6 +4,7 @@ const {
   getCategories,
   getCategoryByIdOrName,
   getSubCategoriesByCategoryIdOrName,
+  getItemsByCategoryIdOrName,
   updateCategory,
 } = require("../controllers/categoryController");
 
@@ -67,6 +68,9 @@ router.get("/:identifier", getCategoryByIdOrName);
  * @example URL: /categories/Electronics
  */
 router.get("/:identifier/subcategories", getSubCategoriesByCategoryIdOrName);
+
+
+router.get("/:identifier/items", getItemsByCategoryIdOrName);
 
 /**
  * @route PATCH /categories/:id

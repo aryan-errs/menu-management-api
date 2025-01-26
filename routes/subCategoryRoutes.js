@@ -4,6 +4,7 @@ const {
   getAllSubCategories,
   getSubCategoryByIdOrName,
   updateSubCategory,
+  getItemsBySubCategoryIdOrName
 } = require("../controllers/subCategoryController");
 
 const router = express.Router();
@@ -30,7 +31,9 @@ router.get("/", getAllSubCategories);
  * @param {string} identifier - The ID or name of the subcategory.
  * @access Public
  */
-router.get("/details/:identifier", getSubCategoryByIdOrName);
+router.get("/:identifier", getSubCategoryByIdOrName);
+
+router.get("/:identifier/items", getItemsBySubCategoryIdOrName);
 
 /**
  * @route PATCH /:id

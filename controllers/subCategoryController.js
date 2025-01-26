@@ -1,5 +1,6 @@
 const SubCategory = require("../models/SubCategory");
 const Category = require("../models/Category");
+const Item = require("../models/Item")
 
 exports.createSubCategory = async (req, res) => {
   try {
@@ -46,6 +47,26 @@ exports.getSubCategoryByIdOrName = async (req, res) => {
     } else {
       res.status(404).json({ error: "Subcategory not found" });
     }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+exports.getItemsBySubCategoryIdOrName = async (req, res) => {
+  try {
+    const { identifier } = req.params;
+
+    // Find the subcategory by ID or name
+    const subCategory = await SubCategory.findOne({ $or: [{ _id: identifier }, { name: identifier }] });
+    if (!subCategory) {
+      return res.status(404).json({ error: "Sub-category not found" });
+    }
+
+    // Fetch all items associated with the subcategory
+    const items = await Item.find({ subCategoryId: subCategory._id });
+
+    res.status(200).json(items);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

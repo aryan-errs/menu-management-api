@@ -1,5 +1,6 @@
 const Category = require("../models/Category");
 const SubCategory = require("../models/SubCategory")
+const Item = require("../models/Item")
 
 exports.createCategory = async (req, res) => {
   try {
@@ -33,6 +34,24 @@ exports.getSubCategoriesByCategoryIdOrName = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+exports.getItemsByCategoryIdOrName = async (req, res) => {
+  try {
+    const { identifier } = req.params;
+
+    const category = await Category.findOne({ $or: [{ _id: identifier }, { name: identifier }] });
+    if (!category) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+
+    const items = await Item.find({ categoryId: category._id });
+
+    res.status(200).json(items);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 
 exports.updateCategory = async (req, res) => {
   const category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
