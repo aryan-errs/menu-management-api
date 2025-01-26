@@ -2,7 +2,6 @@ const express = require("express");
 const {
   createSubCategory,
   getAllSubCategories,
-  getSubCategoriesByCategoryId,
   getSubCategoryByIdOrName,
   updateSubCategory,
 } = require("../controllers/subCategoryController");
@@ -24,13 +23,6 @@ router.post("/:categoryId", createSubCategory);
  */
 router.get("/", getAllSubCategories);
 
-/**
- * @route GET /category/:categoryId
- * @description Retrieve all subcategories under a specific category.
- * @param {string} categoryId - The ID of the parent category.
- * @access Public
- */
-router.get("/category/:categoryId", getSubCategoriesByCategoryId);
 
 /**
  * @route GET /details/:identifier

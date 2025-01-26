@@ -33,15 +33,6 @@ exports.getAllSubCategories = async (req, res) => {
   }
 };
 
-exports.getSubCategoriesByCategoryId = async (req, res) => {
-  try {
-    const { categoryId } = req.params;
-    const subCategories = await SubCategory.find({ categoryId }).populate("categoryId");
-    res.status(200).json(subCategories);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
 exports.getSubCategoryByIdOrName = async (req, res) => {
   try {

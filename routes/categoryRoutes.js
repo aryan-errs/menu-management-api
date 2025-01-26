@@ -3,6 +3,7 @@ const {
   createCategory,
   getCategories,
   getCategoryByIdOrName,
+  getSubCategoriesByCategoryIdOrName,
   updateCategory,
 } = require("../controllers/categoryController");
 
@@ -54,6 +55,18 @@ router.get("/", getCategories);
  * @example URL: /categories/Electronics
  */
 router.get("/:identifier", getCategoryByIdOrName);
+
+
+/**
+ * @route GET /categories/:id/subcategories/
+ * @description Get all categories under a category
+ * @access Public
+ * @param {string} identifier - ID or Name of the category
+ * @returns {Object} Category details
+ * @example URL: /categories/12345
+ * @example URL: /categories/Electronics
+ */
+router.get("/:identifier/subcategories", getSubCategoriesByCategoryIdOrName);
 
 /**
  * @route PATCH /categories/:id
